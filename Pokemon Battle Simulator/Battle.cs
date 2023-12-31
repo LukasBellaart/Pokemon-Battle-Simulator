@@ -9,7 +9,7 @@ namespace Pokemon_Battle_Simulator
 {
     internal class Battle
     {
-        private int winnaar;
+        private MatchStatus status;
 
         private Pokemon pokemon;
 
@@ -27,28 +27,28 @@ namespace Pokemon_Battle_Simulator
 
             if (pokeMonStrength1 == pokeMonWeakness2)
             {
-                this.winnaar = 0;
+                this.status = MatchStatus.WIN;
                 this.pokemon = pokemon1;
                 this.pokeball = pokeball1;
 
             }
             else if (pokeMonStrength2 == pokeMonWeakness1)
             {
-                this.winnaar = 1;
+                this.status = MatchStatus.LOSE;
                 this.pokemon = pokemon2;
                 this.pokeball = pokeball2;
 
             }
             else
             {
-                this.winnaar = 2;
+                this.status = MatchStatus.DRAW;
             }
 
         }
 
-        public int getWinnaar()
+        public MatchStatus getWinnaar()
         {
-            return winnaar;
+            return status;
         }
 
         public Pokemon getPokemon()

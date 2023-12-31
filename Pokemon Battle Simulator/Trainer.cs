@@ -20,9 +20,12 @@ namespace Pokemon_Battle_Simulator
             this.pokeballs.CollectionChanged += listChanged;
 
             this.naam = naam;
-            for (int i = 0; i < 6; i++)
+
+            string[] defaultPokemons = { "Charmander", "Squirtle", "Bulbasaur", "Charmander", "Squirtle", "Bulbasaur" };
+
+            foreach (string pokemon in defaultPokemons)
             {
-                pokeballs.Add(new Pokeball(i));
+                pokeballs.Add(new Pokeball(naam, pokemon));
             }
         }
 

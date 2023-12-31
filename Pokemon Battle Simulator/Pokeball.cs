@@ -11,50 +11,44 @@ namespace Pokemon_Battle_Simulator
     {
 
         private readonly Pokemon pokemon;
+        private readonly string ownerName;
 
-        public Pokeball(int id)
+        public Pokeball(string naam, string pokemonName)
         {
-            if(id == 0)
+            switch (pokemonName)
             {
-                pokemon = new Charmander();
-            } else if (id == 1)
-            {
-                pokemon = new Squirtle();
-            } else if (id ==2)
-            {
-                pokemon = new Bulbasaur();
+                case "Charmander":
+                    pokemon = new Charmander();
+
+                    break;
+                case "Squirtle":
+                    pokemon = new Squirtle();
+
+                    break;
+                case "Bulbasaur":
+                    pokemon = new Bulbasaur();
+                    break;
             }
-            else if (id == 3)
-            {
-                pokemon = new Charmander();
-            }
-            else if (id == 4)
-            {
-                pokemon = new Squirtle();
-            }
-            else if (id == 5)
-            {
-                pokemon = new Bulbasaur();
-            }
+            ownerName = naam;
         }
 
 
         public Pokemon releasePokemon()
         {
 
-            Console.WriteLine("Releasing " + pokemon.getName());
+            Console.WriteLine(ownerName + " is releasing " + pokemon.getName());
 
             return pokemon;
         }
 
         public void catchPokemon()
         {
-            Console.WriteLine("Catching " + pokemon.getName());
+            Console.WriteLine(ownerName + " is catching " + pokemon.getName());
         }
 
         public void killPokemon(Pokemon killerPokemon)
         {
-            Console.WriteLine(killerPokemon.getName() + " killed " + pokemon.getName() + "!\n");
+            Console.WriteLine(killerPokemon.getName() + " killed " + ownerName + "'s " + pokemon.getName() + "!\n");
         }
     }
 }

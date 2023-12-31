@@ -29,6 +29,8 @@ List<int> trainer2ListUsed = new List<int>();
 string trainer1name = trainer1.getNaam();
 string trainer2name = trainer2.getNaam();
 
+int maxAttempts = 30;
+
 Arena arena = new Arena();
 
 int i = 0;
@@ -38,11 +40,30 @@ while(canGameContinue()) {
     {
         int trainer1Number = new Random().Next(0, 6);
 
+        Boolean succeeded = true;
+
+
+        int index = 0;
         while (trainer1ListUsed.Contains(trainer1Number))
         {
-            trainer1Number = new Random().Next(0, 6);
 
+            if(maxAttempts == index)
+            {
+                succeeded = false;
+                break;
+            }
+
+            trainer1Number = new Random().Next(0, 6);
+            index++;
         }
+
+        if (!succeeded)
+        {
+            break;
+        }
+
+
+
         trainer1ListUsed.Add(trainer1Number);
 
         Pokeball trainer1Pokeball = trainer1.getPokeball(trainer1Number);
@@ -52,10 +73,28 @@ while(canGameContinue()) {
 
         int trainer2Number = new Random().Next(0, 6);
 
-        while (trainer2ListUsed.Contains(trainer1Number))
+        Boolean succeeded2 = true;
+
+
+        int index2 = 0;
+        while (trainer2ListUsed.Contains(trainer2Number))
         {
+
+            if (maxAttempts == index)
+            {
+                succeeded2 = false;
+                break;
+            }
+
             trainer2Number = new Random().Next(0, 6);
+            index2++;
         }
+
+        if (!succeeded2)
+        {
+            break;
+        }
+
         trainer2ListUsed.Add(trainer2Number);
 
         Pokeball trainer2Pokeball = trainer2.getPokeball(trainer2Number);
@@ -63,18 +102,18 @@ while(canGameContinue()) {
 
         Battle battleResults = arena.startRound(trainer1Pokemon, trainer2Pokemon, trainer1Pokeball, trainer2Pokeball);
 
-        int winner = battleResults.getWinnaar();
+        MatchStatus status = battleResults.getWinnaar();
 
-        arena.revealWinner(winner, trainer1Pokemon, trainer2Pokemon, trainer1Pokeball, trainer2Pokeball);
+        arena.revealWinner(status, trainer1Pokemon, trainer2Pokemon, trainer1Pokeball, trainer2Pokeball);
 
 
     } else
     {
 
-        int lastRound = arena.getLastWinner();
+        MatchStatus lastRound = arena.getLastWinner();
         Pokemon lastRoundPokemon = arena.getLastPokemon();
         Pokeball lastRoundBall = arena.getLastPokeball();
-        if (lastRound == 0)
+        if (lastRound == MatchStatus.WIN)
         {
             Pokeball trainer1Pokeball = lastRoundBall;
             Pokemon trainer1Pokemon = lastRoundPokemon;
@@ -82,11 +121,28 @@ while(canGameContinue()) {
             int trainer2Number = new Random().Next(0, 6);
 
 
+            Boolean succeeded = true;
 
+
+            int index = 0;
             while (trainer2ListUsed.Contains(trainer2Number))
             {
+
+                if (maxAttempts == index)
+                {
+                    succeeded = false;
+                    break;
+                }
+
                 trainer2Number = new Random().Next(0, 6);
+                index++;
             }
+
+            if (!succeeded)
+            {
+                break;
+            }
+
             trainer2ListUsed.Add(trainer2Number);
 
             Pokeball trainer2Pokeball = trainer2.getPokeball(trainer2Number);
@@ -94,22 +150,40 @@ while(canGameContinue()) {
 
             Battle battleResults = arena.startRound(trainer1Pokemon, trainer2Pokemon, trainer1Pokeball, trainer2Pokeball);
 
-            int winner = battleResults.getWinnaar();
+            MatchStatus winner = battleResults.getWinnaar();
 
             arena.revealWinner(winner, trainer1Pokemon, trainer2Pokemon, trainer1Pokeball, trainer2Pokeball);
 
         }
-        else if (lastRound == 1)
+        else if (lastRound == MatchStatus.LOSE)
         {
 
             Pokeball trainer2Pokeball = lastRoundBall;
             Pokemon trainer2Pokemon = lastRoundPokemon;
 
             int trainer1Number = new Random().Next(0, 6);
+            Boolean succeeded = true;
+
+
+            int index = 0;
             while (trainer1ListUsed.Contains(trainer1Number))
             {
+
+                if (maxAttempts == index)
+                {
+                    succeeded = false;
+                    break;
+                }
+
                 trainer1Number = new Random().Next(0, 6);
+                index++;
             }
+
+            if (!succeeded)
+            {
+                break;
+            }
+
             trainer1ListUsed.Add(trainer1Number);
 
             Pokeball trainer1Pokeball = trainer1.getPokeball(trainer1Number);
@@ -117,29 +191,66 @@ while(canGameContinue()) {
 
             Battle battleResults = arena.startRound(trainer1Pokemon, trainer2Pokemon, trainer1Pokeball, trainer2Pokeball);
 
-            int winner = battleResults.getWinnaar();
+            MatchStatus winner = battleResults.getWinnaar();
 
             arena.revealWinner(winner, trainer1Pokemon, trainer2Pokemon, trainer1Pokeball, trainer2Pokeball);
 
         }
-        else if (lastRound == 2)
+        else if (lastRound == MatchStatus.DRAW)
         {
             int trainer1Number = new Random().Next(0, 6);
+
+            Boolean succeeded = true;
+
+
+            int index = 0;
             while (trainer1ListUsed.Contains(trainer1Number))
             {
+
+                if (maxAttempts == index)
+                {
+                    succeeded = false;
+                    break;
+                }
+
                 trainer1Number = new Random().Next(0, 6);
+                index++;
             }
+
+            if (!succeeded)
+            {
+                break;
+            }
+
+
             trainer1ListUsed.Add(trainer1Number);
 
             Pokeball trainer1Pokeball = trainer1.getPokeball(trainer1Number);
             Pokemon trainer1Pokemon = trainer1Pokeball.releasePokemon();
 
             int trainer2Number = new Random().Next(0, 6);
+            Boolean succeeded2 = true;
 
-            while (trainer2ListUsed.Contains(trainer1Number))
+
+            int index2 = 0;
+            while (trainer2ListUsed.Contains(trainer2Number))
             {
+
+                if (maxAttempts == index)
+                {
+                    succeeded2 = false;
+                    break;
+                }
+
                 trainer2Number = new Random().Next(0, 6);
+                index2++;
             }
+
+            if (!succeeded2)
+            {
+                break;
+            }
+
             trainer2ListUsed.Add(trainer2Number);
 
             Pokeball trainer2Pokeball = trainer2.getPokeball(trainer2Number);
@@ -147,26 +258,20 @@ while(canGameContinue()) {
 
             Battle battleResults = arena.startRound(trainer1Pokemon, trainer2Pokemon, trainer1Pokeball, trainer2Pokeball);
 
-            int winner = battleResults.getWinnaar();
+            MatchStatus winner = battleResults.getWinnaar();
 
             arena.revealWinner(winner, trainer1Pokemon, trainer2Pokemon, trainer1Pokeball, trainer2Pokeball);
 
         }
     }
-
     i++;
-
 }
 
 arena.displayWinner();
 
 Boolean canGameContinue()
 {
-    if(trainer1ListUsed.Count == 6)
-    {
-        return false;
-    }
-    else if (trainer2ListUsed.Count == 6)
+    if(trainer1ListUsed.Count == 6 || trainer2ListUsed.Count == 6)
     {
         return false;
     }
