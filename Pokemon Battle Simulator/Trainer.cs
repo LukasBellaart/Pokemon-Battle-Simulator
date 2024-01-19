@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using Pokemon_Battle_Simulator.Pokemons;
 
 namespace Pokemon_Battle_Simulator
 {
@@ -25,7 +26,18 @@ namespace Pokemon_Battle_Simulator
 
             foreach (string pokemon in defaultPokemons)
             {
-                pokeballs.Add(new Pokeball(naam, pokemon));
+                switch (pokemon)
+                {
+                    case "Charmander":
+                        pokeballs.Add(new Pokeball(naam, new Charmander()));
+                        break;
+                    case "Squirtle":
+                        pokeballs.Add(new Pokeball(naam, new Squirtle()));
+                        break;
+                    case "Bulbasaur":
+                        pokeballs.Add(new Pokeball(naam, new Bulbasaur()));
+                        break;
+                }
             }
         }
 

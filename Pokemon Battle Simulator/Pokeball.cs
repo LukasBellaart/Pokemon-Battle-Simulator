@@ -13,22 +13,10 @@ namespace Pokemon_Battle_Simulator
         private readonly Pokemon pokemon;
         private readonly string ownerName;
 
-        public Pokeball(string naam, string pokemonName)
+        public Pokeball(string naam, Pokemon pokemon)
         {
-            switch (pokemonName)
-            {
-                case "Charmander":
-                    pokemon = new Charmander();
-
-                    break;
-                case "Squirtle":
-                    pokemon = new Squirtle();
-
-                    break;
-                case "Bulbasaur":
-                    pokemon = new Bulbasaur();
-                    break;
-            }
+  
+            this.pokemon = pokemon;
             ownerName = naam;
         }
 
